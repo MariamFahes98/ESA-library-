@@ -70,7 +70,7 @@ const validation = () => {
         }
 
            //styles if
-           if(validationMessage.innerHTML == "Valid email address!" && spn[1].style.display == "none" )location.href="./signup.html";
+           if(validationMessage.innerHTML == "Valid email address!" && spn[1].style.display == "none" )location.href="../index.html";
     
            if (spn[1].style.display !== "none" ) {
            icon.style.marginTop="-1.2rem";
