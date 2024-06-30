@@ -1,7 +1,10 @@
 
 <div class="topbar">
-            <div class="logo">
-                <h2>Open Library</h2>
+            <!-- <div class="logo" style="padding-left:0; background-color:red; margin-left:0"> -->
+                <!-- <img src="images/logolibrary.jpg" style="height:60px; width:260px; " /> -->
+           
+           <div class="logo">
+                <h2>My Library</h2>
             </div>
             <div class="search">
                 <?php

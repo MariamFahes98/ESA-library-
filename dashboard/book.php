@@ -1,10 +1,18 @@
 <?php
+session_start();
+include 'includes/conn.php';
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+     header("Location: index.php");
+// print_r($_SESSION);
+echo $_SESSION["roles"];
+// $name = $_SESSION["name"]
 
+print_r($_SESSION);
 require 'amalcloud/cloud/vendor/autoload.php';
 use Cloudinary\Configuration\Configuration;
 use Cloudinary\Api\Upload\UploadApi;
 include 'includes/conn.php';
-// session_start();
+// 
 Configuration::instance([
     'cloud' => [
       'cloud_name' => 'kaw-ets', 

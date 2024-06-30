@@ -2,41 +2,44 @@
 <?php
 session_start();
 include 'includes/conn.php';
+
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+header("Location: index.php");
+
+
 $name = "";
 
 $id = 0;
 $edit_state = false;
 
-$nameErr ="";
+// $nameErr ="";
   $formError=array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isSet($_POST['add'])) {
 	$name = $_POST['categoriname'];
     if (empty($_POST["categoriname"])) {
-        $nameErr = "Name is required";
+        $formError[] = "category Name is required";
       }
   
       
     if (isSet($_POST['categoriname']) && $_POST['categoriname'] != '') {
-		$user = $_POST['categoriname'];
+		// $user = $_POST['categoriname'];
 		$checkQuery = mysqli_query($conn, "SELECT * FROM `category` WHERE `cattitle`='$name'");
         
-        //
-        // if($_POST['categoriname'] ==''){
-        //     $formError[]='Enter the name for category';
-            
-        //     }
+     
 		if (mysqli_num_rows($checkQuery) > 0) {
-			$formError[]='That username already exists.';
+			$formError[]='That category name already exists.';
 		}else{
 			$insertQuery = mysqli_query($conn, "INSERT INTO category (cattitle) VALUES ('$name')");
 			if ($insertQuery) {
                 $formError[] = "Data Saved Successfully";
                 header("Location: categories.php");
+                $conn->close();
 			}
-            // else
-				// echo 'Failed to insert username although no rows previously existed...';
+            else
+				echo 'Failed to insert category although no rows previously existed...';
 		}
+        
 	}
     // else
 		// echo 'No username input found. No post sent...';
@@ -59,14 +62,14 @@ if (isset($_POST['update'])) {
 
 
 	mysqli_query($conn, "UPDATE category SET cattitle='$name' WHERE CategoryID=$id");
-	$_SESSION['message'] = "Data Updated Successfully";
+	$formError[] = "Data Updated Successfully";
 	header('location: categories.php');
 }
 // For deleteing records
 if (isset($_GET['delete'])) {
 	$id = $_GET['delete'];
 	mysqli_query($conn, "DELETE FROM category WHERE CategoryID=$id");
-	$_SESSION['message'] = "Data Deleted Successfully";
+	$formError[] = "Data Deleted Successfully";
 	header('location:categories.php');
 }
 ?>
@@ -115,35 +118,23 @@ $data = mysqli_fetch_array($record);
     
 
             <div class="items1">
-            <div style="background-color:white; text-align: center; margin-left:290px; margin-top:20px;
-    width: 60%;padding-top:10px; color:red;
-    /* height: 10%;"> 
-   
-                    <?php if(!empty($formError)){
-					foreach($formError as $error){
-				?>
-                 <div class="col-sm-12 alert alert-danger text-center">
-                <?php
-				 echo $error;
-				 ?>
-             </div>
-                <?php  } } else{echo "";}
-				?>
-                  
-                </div>
+          
        
                 <div class="add2">
                     <div>
-                        <h1>Categories</h1>
+                        <h1 style="padding-bottom:12px;">Categories</h1>
                         <div class="addbook">
                            
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                        
 
                             <div> <input type="text" id="categoriname" name="categoriname" 
-                                    placeholder="Enter category name" value="<?php echo $name; ?>" />
-                                    <span class="error"> <?php echo "*". $nameErr;?></span>
+                                    placeholder="Enter category name" value="<?php echo $name; ?>" style="" />
+                                
                                 </div>
+                             <div>   <span style="margin-top:10px;" id="errorMessage" class="error"> <?php 
+                            //  echo  $nameErr;
+                             ?></span></div>
                                     
                         </div>
                       
@@ -160,6 +151,23 @@ $data = mysqli_fetch_array($record);
                          
                         </div>
                     </div>
+                        <div style="margin-left:10px; margin-top:20px;
+                            width: 30%;padding-top:10px; color:red;
+                            /* height: 10%;"> 
+        
+                                    <?php if(!empty($formError)){
+                                    foreach($formError as $error){
+                                ?>
+                                <div class="col-sm-12 alert alert-danger">
+                                        <?php
+                                        echo $error;
+                                        ?>
+                                </div>
+                                <?php  } } else{echo "";}
+                                ?>
+                        
+                        </div>
+                        <div></div>
                 </div>
                
             </div>
@@ -192,8 +200,13 @@ $data = mysqli_fetch_array($record);
 
                 <?php
                     $sql = "SELECT * FROM category";
-                    $query = $conn->query($sql);
-                    while($row = $query->fetch_assoc()){
+
+                    $result = mysqli_query($conn, $sql);
+ 
+                        // Output data of each row
+                        while ($row = mysqli_fetch_assoc($result)) {
+
+               
                         ?>
                   
                     <div class="addbook3" style="
@@ -204,7 +217,7 @@ $data = mysqli_fetch_array($record);
                             height: 40px;
                             background-color: #ffff;">
 
-                              <div class="rowaddbook3"><?php echo ucfirst($row['cattitle']) ; ?> </div>
+                              <div class="rowaddbook3"  id="select_category"><?php echo ucfirst($row['cattitle']) ; ?> </div>
                         
 
 
@@ -212,12 +225,12 @@ $data = mysqli_fetch_array($record);
                                 <div class="first">
                                 
                                     <div style="padding-top:3px;">
-                                    <a href="categories.php?edit=<?php echo $row["CategoryID"]; ?>" class="editbtnf" 
+                                    <a href="categories.php?edit=<?php echo $row["CategoryID"]; ?>" class="editbtnf " 
                                     style="
                                        margin-right: 5px; 
-                                         box-sizing: border-box; border-radius: solid 1px green;
+                                         box-sizing: border-box; border-radius: solid 1px #463610;
 
-                                        background-color: green;
+                                        background-color: #463610;
                                         border: none;
                                         color: white;
                                         height:25px;
@@ -236,12 +249,12 @@ $data = mysqli_fetch_array($record);
                                          ?>
                                          " ><i class='fa fa-edit'></i> Edit</button>
                                                                          -->
-                          <a href="categories.php?delete=<?php echo $row["CategoryID"]; ?>" class="editbtnf" 
-                                    style="
+                          <a href="categories.php?delete=<?php echo $row["CategoryID"]; ?>" class="editbtnf editc" 
+                                 style="
                                                             margin-right: 5px; 
-                                  box-sizing: border-box; border-radius: solid 1px red;
+                                  box-sizing: border-box; border-radius: solid 1px #867548;
 
-                                background-color: red;
+                                background-color: #867548;
                                 border: none;
                                 color: white;
                                 height:25px;
@@ -283,25 +296,55 @@ $data = mysqli_fetch_array($record);
         </div>
     </div>
 </form>
+
 <script>
     function validateForm() {
        //location price capacity availability
   let categoriname = document.forms["myForm"]["categoriname"].value;
+  const errorMessage = document.getElementById('errorMessage');
 
 
  
 
 
   if (categoriname == "") {
-    alert("categoriname must be filled out");
+    errorMessage.textContent = 'category Name is required';
     return false;
   }
+  errorMessage.textContent = '';
+  return true;
 
  
 
 }
 
         </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.editc').click(function(e) {
+        e.preventDefault();
+        
+        var deleteUrl = $(this).attr('href'); // Get the href attribute of the clicked element
+        console.log(deleteUrl); // Optional: Log the URL to verify
+        
+        // Display a confirmation dialog
+        if (confirm("Are you sure you want to delete this category?")) {
+            // Redirect to the delete URL if confirmed
+            window.location.href = deleteUrl;
+        } else {
+            // Do something else if not confirmed (optional)
+        }
+    });
+});
+</script>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="chart1.js"></script>
 </body>
