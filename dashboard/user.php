@@ -1,3 +1,13 @@
+
+<?php
+session_start();
+include 'includes/conn.php';
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+header("Location: index.php");
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,120 +17,49 @@
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
-    <title>Users</title>
+    <title>Return Books</title>
 </head>
 
 <body>
     <form name="myForm" action="#" onsubmit="validateForm()">
     <div class="container">
     <?php include 'includes/navbar.php'; ?>
-        <!-- <div class="topbar">
-            <div class="logo">
-                <h2>Open Library</h2>
-            </div>
-            <div class="search">
-                <input type="text" id="search" aria-placeholder="search here">
-                <label for="search"><i class="fas fa-search"></i></label>
-
-            </div>
-            <div class="imtop">
-                <div style="margin-right: 5px;"> <i class="fas fa-bell"></i></div>
-                <div class="user">
-                    <img src="images/admin.png" />
-
-                </div>
-            </div>
-        </div> -->
+   
         <?php include 'includes/sidebar.php'; ?>
-        <!-- <div class="sidebar">
-
-            <div class="user2">
-                <img class="user2admin" src="images/admin.png" />
-                <div class="admin" >
-                    <div class="admin2">Admin Admin</div>
-                    <div class="admin2circle">
-                        <div class="status-circle"></div>
-                        <div class="online">Online</div>
-                    </div>
+      
+        <div class="mainr" style="    position: absolute;
+                    top: 60px;
+                    width: calc(100% - 260px);
+                    left: 260px;
+                    min-height: calc(100vh - 60px);
+                    background:white;
+                    display: grid;
+                    grid-template-rows: repeat(2 , 1fr);">
+           
+                <div>
+                    
+                <div style=" margin: 5% auto 5% auto;
+                        /* margin-top: 5%; */
+                        /* margin: auto; */
+                        text-align: center;
+                        width: 60%;
+                        height: 15%;
+                        padding:10px;
+                        background-color: #F4F1EA;">
+                <h1>ALL USERS</h1>
                 </div>
-            </div>
-            <ul>
-                <li>
-                    <a href="dashboard.html"><img src="images/home.png" />
-                        <div>Home</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="book.html"><img src="images/book2.png" />
-                        <div>Books </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="borrowbook.html"><img src="images/borrow2.png" />
-                        <div>Borrow Book</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="return.html"><img src="images/return.png" />
-                        <div>Return</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="room.html"><img src="images/room11.png" />
-                        <div>Room</div>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="categories.html"><img src="images/categories.png" />
-                        <div>Categories</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="student.html"><img src="images/student.png" />
-                        <div>Student</div>
-                    </a>
-                </li>
-            
-              
-            </ul>
-        </div> -->
-        <div class="main">
-
-
-            <div class="items1">
-                <div class="add">
-                    <div>
-                        <h1>ADD NEW USER</h1>
-                        <div class="addbook">
-                            <div> <input type="text" id="firstname" name="firstname" value="" required
-                                    placeholder="Enter First Name" /></div>
-                            <div> <input type="text" id="lastname" name="lastname" value="" required
-                                    placeholder="Enter Last Name" /></div>
-                        </div>
-                        <div class="addbook">
-                            <div> <input type="file" id="fileUpload" onchange="validateFileType()"/></div>
-                            </div>
-                      
-                      
-                        <div class="addbook">
-                            <div> <button type="submit">Add User</button></div>
-                         
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="deleteupdate items2">
+                <div class="deleteupdate items2">
                 <div class="showall">
                 
                        
                         <div class="addbook2">
-                            <div><label name="">Image</label></div>
-                            <div><label name="">User ID</label></div>
-                            <div><label name="">First Name</label></div>
-                            <div><label name="">Last Name</label></div>
-                        
-                            <div><label name="">Action</label></div>
+                            <div><label name="">ID</label></div>
+                            <div><label name="">Name</label></div>
+                           
+                            <div><label name="">Email</label></div>
+                            <div><label name="">Role</label></div>
+                            <!-- <div><label name="">Action</label></div> -->
+                       
                         </div>
                       
                        
@@ -128,27 +67,40 @@
                     
                 </div>
                 <div class="showall2">
-                
+                <?php
+
+$sql = "SELECT user.UserID,user.name, user.email AS useremail , role.Role AS rolename
+ FROM user
+INNER JOIN role ON user.role = role.ID;";
+// WHERE borrowing.ReturnDate IS NOT NULL
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+
+    
+
+    // Output data of each row
+    while ($row = mysqli_fetch_assoc($result)) {
+        // $retuneddate = $row['borreturn'];	
+        // $returded = ($retuneddate == NULL) ? " notreturned" : $retuneddate;
+        ?>
+        
                        
-                    <div class="addbook3">
+                    <div class="addbook3" style="
+                   border-bottom: 1px solid #cbcbcb;
+                    text-align:start;
+                            ">
                         
-                        <div class="rowaddbook3"  ><img src="images/student.png" > </div>
-                        <div class="rowaddbook3" ><label name=""> 25</label></div>
-                        <div class="rowaddbook3"><label name="">Amal</label></div>
-                        <div class="rowaddbook3"> <label name="">Farhat</label></div>
-                   
+                        <div class="rowaddbook3" style="" ><?php echo $row["UserID"];  ?></div>
+                        <div class="rowaddbook3" ><label name=""><?php echo $row["name"];  ?></label></div>
+                        <div class="rowaddbook3"><label name=""><?php echo $row['useremail']; ?></label></div>
+                        <div class="rowaddbook3"> <label name=""><?php echo $row['rolename']; ?></label></div>
+                     
+                        <!-- <div class="rowaddbook3"><label name=""><?php  ?></label></div> -->
+                        
 
                         
-                        <div class="first">
-                          
-                            <div>
-                                <button class="firstbtn" type="button" >Edit</button>
-                                                                
-                                <br> <button class="secondbtn" type="button" >Delete</button>
-                            </div>
-                         
-                            
-                        </div>
+                        
                         
                         <!-- <div style="display: grid; grid-template-rows: repeat(2 , 1fr);   gap: 2px; height: 60px; background-color: red;">
                            
@@ -167,13 +119,24 @@
                         <!-- </div> -->
                     </div>
                   
-                   
-             <hr>
-            
+                    <?php
+        // echo "User ID: " . $row["UserID"].' '. $row['name'].' '. $row['boruserid'].' ' .$row['code'].' ' .$row['title']."<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+mysqli_close($conn);
+?>
+
+         
                 
             </div>
 
-            </div>
+                </div>
+          
+
+            <!-- </div> -->
 
 
 
@@ -183,35 +146,7 @@
     </div>
 </form>
 <script>
-    function validateForm() {
-          
-  let firstname = document.forms["myForm"]["firstname"].value;
-  let lastname = document.forms["myForm"]["lastname"].value;
-
-
-  if (firstname == "") {
-    alert("firstname must be filled out");
-    return false;
-  }
-  if (lastname == "") {
-    alert("lastname must be filled out");
-    return false;
-  }
-
- 
-
-}
-
-
-function validateFileType() {
-         var selectedFile = document.getElementById('fileUpload').files[0];
-         var allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-
-         if (!allowedTypes.includes(selectedFile.type)) {
-            alert('Invalid file type. Please upload a JPEG, PNG, or PDF file.');
-            document.getElementById('fileUpload').value = '';
-         }
-      }
+   
 </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="chart1.js"></script>

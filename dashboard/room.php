@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,78 +16,9 @@
     <form name="myForm" action="#" onsubmit="validateForm()">
     <div class="container">
     <?php include 'includes/navbar.php'; ?>
-        <!-- <div class="topbar">
-            <div class="logo">
-                <h2>Open Library</h2>
-            </div>
-            <div class="search">
-                <input type="text" id="search" aria-placeholder="search here">
-                <label for="search"><i class="fas fa-search"></i></label>
-
-            </div>
-            <div class="imtop">
-                <div style="margin-right: 5px;"> <i class="fas fa-bell"></i></div>
-                <div class="user">
-                    <img src="images/admin.png" />
-
-                </div>
-            </div>
-        </div> -->
+       
         <?php include 'includes/sidebar.php'; ?>
-        <!-- <div class="sidebar">
-
-            <div class="user2">
-                <img class="user2admin" src="images/admin.png" />
-                <div class="admin" >
-                    <div class="admin2">Admin Admin</div>
-                    <div class="admin2circle">
-                        <div class="status-circle"></div>
-                        <div class="online">Online</div>
-                    </div>
-                </div>
-            </div>
-            <ul>
-                <li>
-                    <a href="dashboard.html"><img src="images/home.png" />
-                        <div>Home</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="book.html"><img src="images/book2.png" />
-                        <div>Books </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="borrowbook.html"><img src="images/borrow2.png" />
-                        <div>Borrow Book</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="return.html"><img src="images/return.png" />
-                        <div>Return</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="room.html"><img src="images/room11.png" />
-                        <div>Room</div>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="categories.html"><img src="images/categories.png" />
-                        <div>Categories</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="student.html"><img src="images/student.png" />
-                        <div>Student</div>
-                    </a>
-                </li>
-            
-              
-            </ul>
-        </div> -->
-        <div class="main">
+               <div class="main">
 
 
             <div class="items1">

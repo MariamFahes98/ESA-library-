@@ -1,3 +1,42 @@
+
+<?php
+session_start();
+include 'includes/conn.php';
+
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+header("Location: index.php");
+?>
+
+
+<!-- // SQL query
+// SELECT Products.ProductID, Products.ProductName, Categories.CategoryName
+// FROM Products
+// JOIN Categories ON Products.CategoryID = Categories.CategoryID; -->
+
+<?php
+// $sql = "SELECT *, user.UserID AS userid, book.BookID AS bookid 
+//         FROM borrowing
+//         LEFT JOIN user ON user.UserID = borrowing.UserID
+//         LEFT JOIN book ON book.BookID  = borrowing.BookID
+//         ORDER BY ReturnDate";
+
+      
+// //  WHERE b.returndate IS NOT NULL
+// $result = mysqli_query($conn, $sql);
+
+// // if (mysqli_num_rows($result) > 0) {
+//     // Output data of each row
+//     while ($row = mysqli_fetch_assoc($result)) {
+//        $pr="User ID: " . $row["UserID"]. " - Name: " . $row["name"]."code:" .$row["code"]."<br>";
+
+//     }
+// } else {
+//     echo "0 results";
+// }
+
+// mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,77 +53,9 @@
     <form name="myForm" action="#" onsubmit="validateForm()">
     <div class="container">
     <?php include 'includes/navbar.php'; ?>
-        <!-- <div class="topbar">
-            <div class="logo">
-                <h2>Open Library</h2>
-            </div>
-            <div class="search">
-                <input type="text" id="search" aria-placeholder="search here">
-                <label for="search"><i class="fas fa-search"></i></label>
-
-            </div>
-            <div class="imtop">
-                <div style="margin-right: 5px;"> <i class="fas fa-bell"></i></div>
-                <div class="user">
-                    <img src="images/admin.png" />
-
-                </div>
-            </div>
-        </div> -->
+   
         <?php include 'includes/sidebar.php'; ?>
-        <!-- <div class="sidebar">
-
-            <div class="user2">
-                <img class="user2admin" src="images/admin.png" />
-                <div class="admin" >
-                    <div class="admin2">Admin Admin</div>
-                    <div class="admin2circle">
-                        <div class="status-circle"></div>
-                        <div class="online">Online</div>
-                    </div>
-                </div>
-            </div>
-            <ul>
-                <li>
-                    <a href="dashboard.html"><img src="images/home.png" />
-                        <div>Home</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="book.html"><img src="images/book2.png" />
-                        <div>Books </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="borrowbook.html"><img src="images/borrow2.png" />
-                        <div>Borrow Book</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="return.html"><img src="images/return.png" />
-                        <div>Return</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="room.html"><img src="images/room11.png" />
-                        <div>Room</div>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="categories.html"><img src="images/categories.png" />
-                        <div>Categories</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="student.html"><img src="images/student.png" />
-                        <div>Student</div>
-                    </a>
-                </li>
-            
-              
-            </ul>
-        </div> -->
+      
         <div class="mainr" style="    position: absolute;
                     top: 60px;
                     width: calc(100% - 260px);
@@ -97,13 +68,13 @@
                 <div>
                     
                 <div style=" margin: 5% auto 5% auto;
-    /* margin-top: 5%; */
-    /* margin: auto; */
-    text-align: center;
-    width: 60%;
-    height: 15%;
-    padding:10px;
-    background-color: #F4F1EA;">
+                        /* margin-top: 5%; */
+                        /* margin: auto; */
+                        text-align: center;
+                        width: 60%;
+                        height: 15%;
+                        padding:10px;
+                        background-color: #F4F1EA;">
                 <h1>RETURN BOOK</h1>
                 </div>
                 <div class="deleteupdate items2">
@@ -114,8 +85,9 @@
                             <div><label name="">Date</label></div>
                             <div><label name="">User ID</label></div>
                             <div><label name="">User Name</label></div>
-                            <div><label name="">ISBN</label></div>
+                            <div><label name="">CODE</label></div>
                             <div><label name="">Title</label></div>
+                            <!-- <div><label name="">Action</label></div> -->
                        
                         </div>
                       
@@ -124,15 +96,37 @@
                     
                 </div>
                 <div class="showall2">
-                
+                <?php
+
+$sql = "SELECT user.UserID,user.name, borrowing.BookID AS boruserid,borrowing.ReturnDate AS borreturn,book.code,book.title
+        FROM user
+INNER JOIN borrowing ON user.UserID = borrowing.UserID
+INNER JOIN book ON book.BookID  = borrowing.BookID;";
+// WHERE borrowing.ReturnDate IS NOT NULL
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+
+    
+
+    // Output data of each row
+    while ($row = mysqli_fetch_assoc($result)) {
+        $retuneddate = $row['borreturn'];	
+        $returded = ($retuneddate == NULL) ? " notreturned" : $retuneddate;
+        ?>
+        
                        
-                    <div class="addbook3">
+                    <div class="addbook3" style="
+                   border-bottom: 1px solid #cbcbcb;
+                    text-align:start;
+                            ">
                         
-                        <div class="rowaddbook3"  >23/5/2024</div>
-                        <div class="rowaddbook3" ><label name="">20</label></div>
-                        <div class="rowaddbook3"><label name="">amal</label></div>
-                        <div class="rowaddbook3"> <label name="">999999</label></div>
-                        <div class="rowaddbook3"><label name="">Lovely Bones</label></div>
+                        <div class="rowaddbook3" style="" ><?php echo $returded; ?></div>
+                        <div class="rowaddbook3" ><label name=""><?php echo $row["UserID"];  ?></label></div>
+                        <div class="rowaddbook3"><label name=""><?php echo $row['name']; ?></label></div>
+                        <div class="rowaddbook3"> <label name=""><?php echo $row['code']; ?></label></div>
+                        <div class="rowaddbook3"><label name=""><?php echo $row['title']; ?></label></div>
+                        <!-- <div class="rowaddbook3"><label name=""><?php echo $returded; ?></label></div> -->
                         
 
                         
@@ -155,8 +149,17 @@
                         <!-- </div> -->
                     </div>
                   
-                   
-             <hr>
+                    <?php
+        // echo "User ID: " . $row["UserID"].' '. $row['name'].' '. $row['boruserid'].' ' .$row['code'].' ' .$row['title']."<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+mysqli_close($conn);
+?>
+
+         
                 
             </div>
 
@@ -173,36 +176,7 @@
     </div>
 </form>
 <script>
-    function validateForm() {
-       
-  let studentid = document.forms["myForm"]["studentid"].value;
-  let name = document.forms["myForm"]["name"].value;
-  let isbn = document.forms["myForm"]["isbn"].value;
-  let title = document.forms["myForm"]["title"].value;
-
-  let price = document.forms["myForm"]["price"].value;
-  let stockLevel = document.forms["myForm"]["stockLevel"].value;
-
-  if (studentid == "") {
-    alert("studentid must be filled out");
-    return false;
-  }
-  if (name == "") {
-    alert("ISBN must be filled out");
-    return false;
-  }
-
-  if (isbn == "") {
-    alert("isbn must be filled out");
-    return false;
-  }
-  if (title == "") {
-    alert("title must be filled out");
-    return false;
-  }
- 
-
-}
+   
 </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="chart1.js"></script>
