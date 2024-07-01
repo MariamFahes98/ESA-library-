@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('id');
 
-    // Function to load books based on JSON file
-    function loadBooks(jsonFile) {
-        fetch(jsonFile)
+    // Function to load books from the API
+    function loadBooks(apiEndpoint) {
+        fetch(apiEndpoint)
             .then(response => response.json())
             .then(books => {
                 const carouselInner = document.getElementById('carousel-books');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 books.forEach((book, index) => {
                     const carouselItem = document.createElement('div');
-                    carouselItem.className = `carousel-item${book.id === bookId ? ' active' : ''}`;
+                    carouselItem.className = `carousel-item${book.id == bookId ? ' active' : ''}`;
                     carouselItem.innerHTML = `
                         <div class="book-details">
                             <div class="book-container">
@@ -80,9 +80,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initial load of books based on default JSON file
-    const defaultJson = 'newarival.json'; // Replace with your default JSON file
-    loadBooks(defaultJson);
+    // Initial load of books based on default API endpoint
+    const defaultApiEndpoint = 'fetch_books.php'; // Replace with your PHP script URL
+    loadBooks(defaultApiEndpoint);
 });
 
 function toggleMenu() {

@@ -1,0 +1,284 @@
+
+body {
+    font-family: Arial, sans-serif;
+    color: rgb(70, 54, 16);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.blurred-background {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Adjust as needed */
+    overflow: hidden;
+}
+
+.blurred-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/Dream-Library.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px); /* Adjust the blur level as needed */
+    z-index: -1;
+}
+#reviewSection {
+    max-width: 800px;
+    margin-top: 80px;
+    background-color: rgb(244, 241, 234);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgb(70, 54, 16);
+}
+
+#reviewForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#reviewForm input,
+#reviewForm textarea,
+#reviewForm select,
+#reviewForm button {
+    padding: 10px;
+    border: 1px solid rgb(70, 54, 16);
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+#reviewForm input:focus,
+#reviewForm textarea:focus,
+#reviewForm select:focus,
+#reviewForm button:focus {
+    border-color: rgb(70, 54, 16);
+    outline: none;
+}
+
+#reviewForm button {
+    background-color: rgb(70, 54, 16);
+    color: rgb(244, 241, 234);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#reviewForm button:hover {
+    background-color: rgb(244, 241, 234);
+    color: rgb(70, 54, 16);
+    border-color: rgb(70, 54, 16);
+}
+
+#reviewContainer {
+    margin-top: 40px;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review .name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.review .book-title {
+    font-style: italic;
+    color: #666;
+}
+
+.review .review-text {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.review .stars {
+    color: gold;
+    font-size: 18px;
+}
+
+.review .timestamp {
+    font-size: 14px;
+    color: #aaa;
+    text-align: right;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #reviewSection {
+        padding: 15px;
+    }
+    
+    .review {
+        padding: 15px;
+    }
+    
+    .review .name,
+    .review .stars,
+    .review .timestamp {
+        font-size: 16px;
+    }
+}
+
+
+
+.review {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 150px;
+}
+
+.review h3 {
+    color: rgb(70, 54, 16);
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.review p {
+    color: rgb(70, 54, 16);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.review-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.customer-reviews{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+.customer-reviews h2{
+    font-size: 30px;
+    color: rgb(70, 54, 16);
+    padding-left:550px;
+    padding-bottom: 35px;
+}
+
+.card {
+    width: 20%;
+    height: 40vh;
+    min-width: 250px;
+    padding: 40px;
+    border-radius: 8px;
+    background-color: rgb(244, 241, 234);
+    box-shadow: 0 4px 7px rgb(70, 54, 16);
+    transition: transform 0.3s ease;
+    color: rgb(70, 54, 16);
+    margin-right: 40px;
+}
+
+.card .name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color:rgb(70, 54, 16) ;
+}
+.card  .bi-patch-check{
+    text-align: center;
+    color:rgb(70, 54, 16) ;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    margin-left:90px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    
+    color: rgb(70, 54, 16);
+    text-align: center;
+}
+.card .stars p{
+    color: rgb(255, 251, 0);
+    
+
+}
+
+
+#reviewCarousel{
+    margin-top: 100px;
+}
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.carousel-item .card {
+    margin-left: 570px;
+    max-width: 500px; 
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 10%; 
+    
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgb(70, 54, 16); 
+    border-radius: 40%;
+    padding: 10px;
+    width: 50px;
+}
+.carousel-control-prev .bi-arrow-bar-left, .carousel-control-next .bi-arrow-bar-right {
+    font-size: 2rem;
+    color: white;
+}
+.carousel-item {
+    text-align: center;
+}
+.carousel-item .card {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+.carousel-item .card img {
+    max-height: 200px;
+    object-fit: cover;
+}
+.carousel-item .stars {
+    color: gold;
+}
+@media (max-width: 768px) {
+    .carousel-item .name {
+        font-size: 16px;
+    }
+    .carousel-item .stars p {
+        font-size: 18px;
+    }
+}

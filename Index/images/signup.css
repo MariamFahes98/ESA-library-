@@ -44,13 +44,13 @@ body {
 }
 
 .undtitle {
-  margin-top: 3rem;
+  margin-top: 4rem;
 }
 
 .text {
   color: rgba(70, 54, 16, 255);
   margin: auto;
-  margin-top: 8%;
+  margin-top: 10%;
   width: 78%;
   font-size: 1.3rem;
 }
@@ -73,22 +73,11 @@ body {
 .form-control::placeholder {
   color: rgba(70, 54, 16, 1) !important;
 }
-.form-control:focus{box-shadow:0px 1px 4px 0px rgba(70, 54, 16, 1) !important;
-transform: translate(6px);
-border: none !important;
-}
-.empty{color: red;
-font-size: 17px;
-display: none;
-}
-.email{
-  font-size: 17px;
-  display: none;
-  }
+
 .checkcontain {
   display: flex;
   flex-wrap: nowrap;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .checkbox-wrapper-43 input[type="checkbox"] {
@@ -174,7 +163,6 @@ display: none;
   font-size: 1.1rem;
   font-weight: 500;
   margin-top: 0.3rem;
-
 }
 
 
@@ -203,17 +191,11 @@ a.terms:active {
   width: 13rem;
   height: 2.5rem;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 3rem;
   background-color: rgba(70, 54, 16, 1);
   border: none;
   border-radius: 4rem;
   color: #ebebeb;
-}
-.checkboxEmpty{
-  margin-top: 0.25rem;
-  font-size: 16.5px;
-  color: red;
-  display: none;
 }
 
 .signin {
