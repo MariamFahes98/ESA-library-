@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  
   <div class="main">
 
     <div class="txtContainer">
@@ -18,11 +19,11 @@
       <div class="text">
         <p class="title">Sign In</p>
         <div class="undtitle">
-          <form class="row g-5" id="formI">
+          <form class="row g-5" id="formI" action="signin.php" method="POST" >
 
             <div class="col-12 flex">
               <!-- <label for="email" class="form-label">Email</label> -->
-              <input type="email" class="form-control buttons" id="email" placeholder="Email">
+              <input type="email" name="email"  class="form-control buttons" id="email" placeholder="Email">
               <svg
                 xmlns="http://www.w3.org/2000/svg" width="25" height="23" fill="currentColor"
                 class="bi bi-person-fill icons" viewBox="0 0 16 16" >
@@ -34,7 +35,7 @@
 
             <div class="col-12 flex">
               <!-- <label for="password" class="form-label">Password</label> -->
-              <input type="password" class="form-control buttons" id="password" placeholder="Password"><svg
+              <input type="password" name="password" class="form-control buttons" id="password" placeholder="Password"><svg
                 xmlns="http://www.w3.org/2000/svg" width="25" height="23" fill="currentColor"
                 class="bi bi-lock-fill icons" viewBox="0 0 16 16" id="iconP">
                 <path
@@ -59,10 +60,10 @@
               </div>
               <div class="remember">Remember Me</div>
             </div>
-            <button type="button" class="acc" id="submit">SIGN IN</button>
+            <button class="acc" id="submit" type="submit" name="submit" >SIGN IN</button>
           </form>
         </div>
-        <div class="forgotps"><a class="fps">Forgot Password?</a></div>
+        <div class="forgotps"><a class="fps" href="./forgetpassword.php">Forgot Password?</a></div>
         <div class="signup">Don't have an account? <a class="asignup" href="./signup.html">Sign Up</a></div>
       </div>
     </div>
@@ -71,5 +72,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./signin.js"></script>
 </body>
-
 </html>
