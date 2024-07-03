@@ -411,8 +411,7 @@ $result = $uploadApi->upload($file, [
   //// status price stockLevel
 }
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart1.js"></script>
+   
 </body>
 
 </html>

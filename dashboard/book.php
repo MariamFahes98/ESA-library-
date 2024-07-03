@@ -1,13 +1,13 @@
 <?php
 session_start();
 include 'includes/conn.php';
-if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 2))
      header("Location: index.php");
 // print_r($_SESSION);
-echo $_SESSION["roles"];
+// echo $_SESSION["roles"];
 // $name = $_SESSION["name"]
 
-print_r($_SESSION);
+// print_r($_SESSION);
 require 'amalcloud/cloud/vendor/autoload.php';
 use Cloudinary\Configuration\Configuration;
 use Cloudinary\Api\Upload\UploadApi;
@@ -27,6 +27,7 @@ Configuration::instance([
       $code = "";
       $qty = "";
       $description="";
+      $salecount="";
 
 
       $edit_state = false;
@@ -47,6 +48,8 @@ Configuration::instance([
           $description=$_POST['description'];
           $qty = $_POST['qty'];
           $category = $_POST['category'];
+          $salecount = $_POST['salecount'];
+          
 
           if (empty($_POST["title"])) {
             $formError[] = "Book title is required";
@@ -63,6 +66,7 @@ Configuration::instance([
             if (empty($_POST["description"])) {
                 $formError[] = "Book description is required";
                 }
+                
             //
         if (empty($_POST["qty"])) {
             $formError[] = "Book qty is required";
@@ -75,10 +79,14 @@ Configuration::instance([
             if ($file['error'] !== UPLOAD_ERR_OK) {
             // if (empty($_FILES["filea"]) || $_FILES["filea"]=== "") {
                 $formError[] = "Book image is required";
-                }  
-
+                } 
+                if (empty($_POST["salecount"])) {
+                    $formError[] = "Book salecount is required";
+                    }     
+//salecount
                 if (isset($_FILES["filea"]) && $_FILES["filea"]["error"] == UPLOAD_ERR_OK && isset($_POST['title'])
-                 && isset($_POST['author']) && isset($_POST['price']) && isset($_POST['code']) && isset($_POST['description']) && isset($_POST['qty']) && isset($_POST['category'])) {
+                 && isset($_POST['author']) && isset($_POST['price']) && isset($_POST['code']) && isset($_POST['description']) && isset($_POST['qty'])
+                 && isset($_POST['category']) && isset($_POST['salecount'])) {
                     $checkQuery = mysqli_query($conn, "SELECT * FROM `book`
                      WHERE 
                     title='$title'
@@ -89,10 +97,11 @@ Configuration::instance([
                     AND `description`='$description'
                     AND `quantity`='$qty'
                     AND `CategoryID`='$category'
+                    AND `sales_count`='$salecount'
                     ");
                     //AND   `price`='$price' AND `code`='$code' AND `descript`='$description' AND `quantity`='$qty' AND `CategoryID`='$category'
                     // author, price, code,descript,quantity, CategoryID
-                    // Validate file type
+                  
                     // $file = $_FILES["filea"]["type"];
                     if (mysqli_num_rows($checkQuery) > 0) {
                         $formError[]='That databook already exists.';
@@ -126,11 +135,10 @@ Configuration::instance([
                             $desc = mysqli_real_escape_string($conn,$description);
                             $qty = $_POST['qty'];
                             $category = $_POST['category'];
-                            
-                            // Perform your database insert here
-                            // Example assuming $conn is your database connection
-                            $sql = "INSERT INTO book (title, author, price, code,description,quantity, CategoryID) 
-                                  VALUES ('$titleescape','$authorescape','$price','$code','" .$desc ."','$qty','$category')";
+                            $salecount=$_POST['salecount'];
+                       
+                            $sql = "INSERT INTO book (title, author, price, code,description,quantity, CategoryID,sales_count) 
+                                  VALUES ('$titleescape','$authorescape','$price','$code','" .$desc ."','$qty','$category','$salecount')";
                                     // -- VALUES ('$title','$author','$price','$code','$description','$qty','$category')";
                             
                             $result = mysqli_query($conn, $sql);
@@ -168,9 +176,9 @@ Configuration::instance([
       $price = $_POST['price'];
       $qty = $_POST['qty'];
       $category = $_POST['category'];
-
+      $salecount=$_POST['salecount'];
       $randomNumber = rand();
-// echo "Random number between 1 and 10: " . $randomNumber . "\n";
+
 
 
       if(isset($_FILES["filea"])){
@@ -190,7 +198,7 @@ $result = $uploadApi->upload($file, [
       } 
     
     
-      mysqli_query($conn, "UPDATE book SET title='$title',CategoryID='$category',author='$author',code='$code',description='$desc',quantity='$qty',price='$price' WHERE BookID=$id");
+      mysqli_query($conn, "UPDATE book SET title='$title',CategoryID='$category',author='$author',code='$code',description='$desc',quantity='$qty',price='$price',sales_count='$salecount' WHERE BookID=$id");
       $formError[] = "Data Updated Successfully";
       header('location: book.php');
     }
@@ -198,7 +206,7 @@ $result = $uploadApi->upload($file, [
   
   
 
-// For deleteing records
+
 if (isset($_GET['delete'])) {
 	$id = $_GET['delete'];
   
@@ -209,13 +217,13 @@ if (isset($_GET['delete'])) {
 }
 ?>
 <?php
-// include 'all_process.php';
+
 if (isset($_GET['edit'])) {
 		$id = $_GET['edit'];
 		$edit_state = true;
 
-		$record = mysqli_query($conn, "SELECT * FROM book LEFT JOIN category ON category.CategoryID=book.CategoryID WHERE BookID=$id");
-$data = mysqli_fetch_array($record);
+		$record = mysqli_query($conn, "SELECT * FROM book INNER JOIN category ON category.CategoryID=book.CategoryID WHERE BookID=$id");
+$data = mysqli_fetch_assoc($record);
 
 $title = $data['title'];
 $uppercaseName = strtoupper($title);
@@ -232,6 +240,7 @@ $qty = $data['quantity'];
 
 $category = $data['cattitle'];	
 $categoryid = $data['CategoryID'];	
+$salecount=$data['sales_count'];
 
 
 	
@@ -292,11 +301,11 @@ $categoryid = $data['CategoryID'];
                                  <select name="category" id="category" >
                                 <option value="0" selected="selected">-- Select --</option>
                                <?php
-                               $sqlc="SELECT * FROM category";
-                               $query=mysqli_query($conn,$sqlc); //    $query=$conn->query($sqlc);
+                               $sqlc="SELECT * FROM category ORDER BY cattitle ";
+                               $query=mysqli_query($conn,$sqlc); //  
                            
                            
-                               while($crow=mysqli_fetch_assoc($query)){  //while($crow=$query->fetch_assoc()){
+                               while($crow=mysqli_fetch_assoc($query)){  
                                 $selected = ($categoryid == $crow['CategoryID']) ? " selected" : "";
                                 ?>
                              <option value='<?php echo $crow['CategoryID'] ?>'  <?php echo $selected; ?> > <?php echo $crow['cattitle']; ?></option>
@@ -310,6 +319,7 @@ $categoryid = $data['CategoryID'];
                             </div>
                         
                         </div>
+                   
                         <div class="addbook">
                              <div> <input type="file" id="filea" name="filea"  accept="image/*" /></div>
                              <div><input type="text" id="description" name="description" value="<?php echo $description; ?>" placeholder="Enter book description" />
@@ -317,6 +327,13 @@ $categoryid = $data['CategoryID'];
                
                           <!-- <div><textarea id="description" name="description" maxlength="1000"></textarea></div> -->
                       
+                        </div>
+                        <div class="addbook">
+                            <div> <input type="number" id="salecount" name="salecount" value="<?php echo $salecount; ?>" 
+                                    placeholder="Enter book salecount" /></div>
+                                    <div> </div>
+                            <!-- <div> <input type="text" id="status" name="status" value="" required
+                                    placeholder="Enter book status" /></div> -->
                         </div>
                         <div class="addbook">
                         <?php if ($edit_state == false): ?>
@@ -366,8 +383,9 @@ $categoryid = $data['CategoryID'];
                             <div><label name="">Categories</label></div>
                             <div><label name="">Price</label></div>
                             <!-- <div><label name="">Status</label></div> -->
-                           
+                            <div><label name="">SalesCount</label></div>
                             <div><label name="">Quantity</label></div>
+                           
                             <div style="text-align:center;" ><label name="">Action</label></div>
                         </div>
                       
@@ -377,13 +395,14 @@ $categoryid = $data['CategoryID'];
                
                 <?php
                 //ORDER BY category.cattitle DESC
-                    $sql = "SELECT * FROM book LEFT JOIN category ON category.CategoryID=book.CategoryID";
+                    $sql = "SELECT * FROM book
+                     INNER JOIN category ON category.CategoryID=book.CategoryID";
                     $result = mysqli_query($conn, $sql);
                      // Output data of each row
                         while ($row = mysqli_fetch_assoc($result)) {
                      
                         ?>
-              
+          
                     <div class="addbook3">
                         <!--                         <div class="rowaddbook3"  ><img src="https://console.cloudinary.com/console/c-010f4d1f2b87b0637973ea8ca38440/media_library/folders/c81da2f82b8932d3413a424a86e6434ddc?view_mode=list/zouatspb9pyiyqgcg8x4.jpg" > </div>
                        -->
@@ -395,7 +414,7 @@ $categoryid = $data['CategoryID'];
                         <!-- <div class="rowaddbook3" ><label name="">Borrwed</label></div> -->
                         <div class="rowaddbook3" ><label name=""><?php echo $row['cattitle'] ; ?></label></div>
                         <div class="rowaddbook3"> <label name=""> <?php echo ucfirst($row['price']) ; ?>$</label></div>
-
+                        <div class="rowaddbook3"> <label name=""> <?php echo ucfirst($row['sales_count']) ; ?></label></div>
                         <div class="rowaddbook3"><label name=""><?php echo ucfirst($row['quantity']) ; ?></label></div>
 
                         
@@ -540,8 +559,6 @@ $(document).ready(function() {
 </script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart1.js"></script>
 </body>
 
 </html>
