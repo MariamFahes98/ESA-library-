@@ -2,7 +2,8 @@
 session_start();
 session_unset();
 session_destroy();
-header('location:loginamal.php');
+header('Location: ../signupin/signin.php');
+// header('location:loginamal.php');
 exit();
 
 ?>

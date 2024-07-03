@@ -2,7 +2,7 @@
 <?php
 session_start();
 include 'includes/conn.php';
-if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 2))
 header("Location: index.php");
 ?>
 
@@ -17,7 +17,7 @@ header("Location: index.php");
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
-    <title>Return Books</title>
+    <title>Users</title>
 </head>
 
 <body>
@@ -43,7 +43,7 @@ header("Location: index.php");
                         /* margin: auto; */
                         text-align: center;
                         width: 60%;
-                        height: 15%;
+                        height: 8%;
                         padding:10px;
                         background-color: #F4F1EA;">
                 <h1>ALL USERS</h1>
@@ -68,6 +68,10 @@ header("Location: index.php");
                 </div>
                 <div class="showall2">
                 <?php
+
+// $sql = "SELECT *
+// FROM user
+// INNER JOIN role ON user.role = role.ID;";
 
 $sql = "SELECT user.UserID,user.name, user.email AS useremail , role.Role AS rolename
  FROM user
@@ -148,8 +152,7 @@ mysqli_close($conn);
 <script>
    
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart1.js"></script>
+   
 </body>
 
 </html>

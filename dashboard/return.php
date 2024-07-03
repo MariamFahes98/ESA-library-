@@ -3,7 +3,7 @@
 session_start();
 include 'includes/conn.php';
 
-if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 2))
 header("Location: index.php");
 ?>
 
@@ -75,18 +75,19 @@ header("Location: index.php");
                         height: 15%;
                         padding:10px;
                         background-color: #F4F1EA;">
-                <h1>RETURN BOOK</h1>
+                <h1>BUYING BOOK</h1>
                 </div>
                 <div class="deleteupdate items2">
                 <div class="showall">
                 
                        
                         <div class="addbook2">
-                            <div><label name="">Date</label></div>
+                            <div><label name="">Purchase Date</label></div>
                             <div><label name="">User ID</label></div>
                             <div><label name="">User Name</label></div>
                             <div><label name="">CODE</label></div>
-                            <div><label name="">Title</label></div>
+                            
+                            <div><label name="">Title</label></div><div><label name="">Price</label></div>
                             <!-- <div><label name="">Action</label></div> -->
                        
                         </div>
@@ -98,10 +99,12 @@ header("Location: index.php");
                 <div class="showall2">
                 <?php
 
-$sql = "SELECT user.UserID,user.name, borrowing.BookID AS boruserid,borrowing.ReturnDate AS borreturn,book.code,book.title
+$sql = "SELECT user.UserID,user.name, buying.BookID AS buyuserid,buying.price AS buyprice,buying.PurchaseDate AS buyingpurchase,book.code,book.title
         FROM user
-INNER JOIN borrowing ON user.UserID = borrowing.UserID
-INNER JOIN book ON book.BookID  = borrowing.BookID;";
+INNER JOIN buying ON user.UserID = buying.UserID
+INNER JOIN book ON book.BookID  = buying.BookID
+-- WHERE borrowing.ReturnDate IS NULL
+;";
 // WHERE borrowing.ReturnDate IS NOT NULL
 $result = mysqli_query($conn, $sql);
 
@@ -111,22 +114,27 @@ if (mysqli_num_rows($result) > 0) {
 
     // Output data of each row
     while ($row = mysqli_fetch_assoc($result)) {
-        $retuneddate = $row['borreturn'];	
-        $returded = ($retuneddate == NULL) ? " notreturned" : $retuneddate;
+        // $retuneddate = $row['borreturn'];	
+        // $returnded = ($retuneddate == NULL) ? "Not Returned" : $retuneddate;
+        // $text_color = ($returnded == "Not Returned") ? 'red' : 'black';
         ?>
         
                        
                     <div class="addbook3" style="
                    border-bottom: 1px solid #cbcbcb;
                     text-align:start;
-                            ">
+                    /* color:<?php echo $text_color; ?>; */
+                     ">
                         
-                        <div class="rowaddbook3" style="" ><?php echo $returded; ?></div>
+                        <div class="rowaddbook3" style="" ><?php
+                        //  echo $returnded; 
+                        echo $row["buyingpurchase"];
+                        ?></div>
                         <div class="rowaddbook3" ><label name=""><?php echo $row["UserID"];  ?></label></div>
                         <div class="rowaddbook3"><label name=""><?php echo $row['name']; ?></label></div>
                         <div class="rowaddbook3"> <label name=""><?php echo $row['code']; ?></label></div>
                         <div class="rowaddbook3"><label name=""><?php echo $row['title']; ?></label></div>
-                        <!-- <div class="rowaddbook3"><label name=""><?php echo $returded; ?></label></div> -->
+                        <div class="rowaddbook3"><label name=""><?php echo $row['buyprice']; ?></label></div>
                         
 
                         
@@ -175,11 +183,8 @@ mysqli_close($conn);
         </div>
     </div>
 </form>
-<script>
+
    
-</script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart1.js"></script>
 </body>
 
 </html>

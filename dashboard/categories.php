@@ -3,7 +3,7 @@
 session_start();
 include 'includes/conn.php';
 
-if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 1))
+if (!isset($_SESSION["roles"])|| (isset($_SESSION["roles"]) && $_SESSION["roles"] != 2))
 header("Location: index.php");
 
 
@@ -41,18 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isSet($_POST['add'])) {
 		}
         
 	}
-    // else
-		// echo 'No username input found. No post sent...';
 
-
-
-//  $sql = "INSERT INTO category (cattitle) VALUES ('$name')";
-//  if (mysqli_query($conn, $sql)) {
-//  	$_SESSION['message'] = "Data Saved Successfully";
-// 		header("Location: categories.php");
-// 	 } else {
-// 		mysqli_close($conn);
-// 	 }
 
 }
 // For updating records
@@ -74,13 +63,13 @@ if (isset($_GET['delete'])) {
 }
 ?>
 <?php
-// include 'all_process.php';
+
 if (isset($_GET['edit'])) {
 		$id = $_GET['edit'];
 		$edit_state = true;
 
 		$record = mysqli_query($conn, "SELECT * FROM category WHERE CategoryID=$id");
-$data = mysqli_fetch_array($record);
+$data = mysqli_fetch_assoc($record);
 			$name = $data['cattitle'];
 	
 
@@ -344,9 +333,8 @@ $(document).ready(function() {
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart1.js"></script>
+ 
+  
 </body>
 
 </html>

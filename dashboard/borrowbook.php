@@ -167,8 +167,7 @@
     
     }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart1.js"></script>
+ 
 </body>
 
 </html>
