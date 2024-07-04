@@ -80,7 +80,7 @@ session_start();
           </form>
         </div>
         <div class="forgotps"><a class="fps" href="./forgetpassword.php">Forgot Password?</a></div>
-        <div class="signup">Don't have an account? <a class="asignup" href="./signup.html">Sign Up</a></div>
+        <div class="signup">Don't have an account? <a class="asignup" href="./signup.php">Sign Up</a></div>
       </div>
     </div>
     <div class="picdiv"><img src="./imgin.jpg" class="pic"></div>

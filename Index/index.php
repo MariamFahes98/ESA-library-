@@ -37,13 +37,12 @@ if ($conn->connect_error) {
                         <ul>
                             <li><a href="index.php">Home</a></li>
                             <li><a href="aboutus.html">About Us</a></li>
-                            <li><a href="#">Category</a></li>
-                            <li><a href="#">Books</a></li>
+                            <li><a href="../books/allavailablebook.php">Books</a></li>
                             <li><a href="#">Rooms</a></li>
-                            <li><a href="signin.php">Login</a></li>
+                            <li><a href="../signupin/signin.php">Login</a></li>
                         </ul>
                         <div class="signup">
-                            <button onclick="location.href='signup.php'" style="margin-left: 30px;">Sign Up</button>
+                            <button onclick="location.href='../signupin/signup.php'" style="margin-left: 30px;">Sign Up</button>
                         </div>
                     </div>
                 </div>
@@ -51,15 +50,16 @@ if ($conn->connect_error) {
                 <div class="head-content-left">
                     <h1>Your Gateway to knowledge and advanture</h1>
                     <p>Welcome to the heart of our community, where knowledge and imagination come together. Our library offers a vast collection of books, digital resources, and programs designed to inspire and educate visitors of all ages. Step into a world of endless possibilities and discover something new with every visit. Join us on this journey of learning and exploration!</p>
+                    <form id="search-form" onsubmit="return false;">
                     <div class="search-container">
-                        <i id="search-icon" class="bi bi-search-heart" data-bs-toggle="tooltip" title="Search for your favorite books" onclick="saveSearch()"></i>
-                        <input type="text" id="search-book" placeholder="Search for a book">
+                    <i id="search-icon" class="bi bi-search-heart" data-bs-toggle="tooltip" title="Search for your favorite books" onclick="searchBook()"></i>
+                    <input type="text" id="search-book" placeholder="Search for a book" name="searchValue">
                         <i class="bi bi-x-circle" id="clear-search" onclick="clearSearch()"></i>
                         <div id="recent-searches" class="recent-searches"></div>
                     </div>
-                    
+                    </form>
                     <div class="buttons-container">
-                        <button class="btn1">Explore Books</button>
+                    <button class="btn1" onclick="window.location.href='../books/allavailablebook.php'">Explore Books</button>
                         <button class="btn2">Explore Rooms</button>
                     </div>                    
                 </div>
@@ -207,6 +207,30 @@ $conn->close();
                 </div>
             </div>
         </footer>
+
+        <script>
+  function searchBook() {
+    var bookName = document.getElementById('search-book').value;
+
+    $.ajax({
+      url: 'search.php',
+      type: 'GET',
+      data: { bookName: bookName },
+      dataType: 'json',
+      success: function(response) {
+        if (response.id) {
+          window.location.href = '../books/bookdetail.php?id=' + response.id;
+        } else {
+          alert('Book not found');
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error("AJAX Error: " + status + error);
+      }
+    });
+  }
+</script>
+
         
         <script src="index.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

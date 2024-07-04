@@ -105,3 +105,4 @@ document.getElementById('recent-searches').addEventListener('click', function(ev
 });
 
 
+

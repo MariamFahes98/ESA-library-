@@ -16,6 +16,7 @@ while ($row = $result->fetch_assoc()) {
     $books[] = $row;
 }
 
+
 $stmt->close();
 $conn->close();
 

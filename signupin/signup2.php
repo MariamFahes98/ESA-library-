@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $errors = [];
+    /*$errors = [];
 
     if (strlen($password) < 8) {
         $errors[] = "Password must be at least 8 characters long.";
@@ -37,7 +37,8 @@ if (isset($_POST['submit'])) {
     }
     if (count($errors) > 0) {
         echo json_encode(['success' => false, 'message' => implode(" ", $errors)]);
-    } 
+    } */
+        
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     // Check if the email already exists in the database
@@ -58,10 +59,11 @@ if (isset($_POST['submit'])) {
 
         if ($stmt->execute()) {
 
-            echo "<script>
-                    alert('Your registration is complete. We\'re excited to have you join our community!');
-                    window.location.href = './index.php';
-                  </script>";
+            echo
+                  $_SESSION['success'] = 'Your registration is complete. We are excited to have you join our community!';
+                  $_SESSION['form_data'] = $_POST;
+                  header('Location: ../Index/index.php');
+
         } else {
             echo "Error: " . $stmt->error;
         }

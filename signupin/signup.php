@@ -32,6 +32,18 @@ session_start();
                         });
                     </script>
                 <?php endif; ?>
+
+                <?php if (isset($_SESSION['success'])): ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', (event) => {
+                            document.getElementById('formI').reset();
+                        });
+                    </script>
+                <?php endif; ?>
+
         <div class="undtitle">
           <form class="row g-5" id="formI" action="signup2.php" method="POST">
             <div class="col-md-6">
