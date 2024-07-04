@@ -20,15 +20,14 @@
         <div class="logo"><img src="logo.png" alt="logo"></div>
         <div class="nav">
             <ul>
-                <li><a href="../index.php">Home</a></li>
-                <li><a href="../aboutus.html">About Us</a></li>
-                <li><a href="#">Category</a></li>
-                <li><a href="#">Books</a></li>
+                <li><a href="../Index/index.php">Home</a></li>
+                <li><a href="../Index/aboutus.html">About Us</a></li>
+                <li><a href="allavailablebook.php">Books</a></li>
                 <li><a href="#">Rooms</a></li>
-                <li><a href="../signupin/signin.html">Login</a></li>
+                <li><a href="../signupin/signin.php">Login</a></li>
             </ul>
             <div class="signup">
-                <button onclick="location.href='../signupin/signup.html'" style="margin-left: 30px;">Sign Up</button>
+                <button onclick="location.href='../signupin/signup.php'" style="margin-left: 30px;">Sign Up</button>
             </div>
         </div>
     </div>
@@ -36,21 +35,14 @@
     <div class="container">
         <div class="d-flex book-nav" id="header1" style="justify-content: space-between; padding-top: 10px;">
             <div>
-                <a href="./popular.html" class="selected"><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i> Popular Products</a>
+                <a href="./popular.php" class="selected"><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i> Popular Products</a>
             </div>
             <div class="lists">
                 <ul class="d-flex listss">
                     <li class="d-none d-md-block"><a href="./newarivals.php" class="gray-text">New Arrivals</a></li>
                     <li class="d-none d-md-block"><a href="./mostsold.php" class="gray-text">Most Sold</a></li>
-                    <li class="d-none d-md-block"><a href="./allavailablebook.php" class="gray-text">Featured Products</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="category dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories 
-                        </a>
-                        <ul class="dropdown-menu category" aria-labelledby="navbarDropdown" id="category-list">
-                            <!-- Categories will be populated here -->
-                        </ul>
-                    </li>
+                    <li class="d-none d-md-block"><a href="./allavailablebook.php" class="gray-text">All available books</a></li>
+                    
                     <li class="dropdown d-block d-md-none">
                         <a href="#" class="gray-text dropdown-toggle" id="navbarDropdownLinks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             More  
@@ -58,7 +50,7 @@
                         <ul class="dropdown-menu category" aria-labelledby="navbarDropdownLinks">
                             <li><a class="dropdown-item item-dropdown" href="./newarivals.php">New Arrivals</a></li>
                             <li><a class="dropdown-item item-dropdown" href="./mostsold.php">Most Sold</a></li>
-                            <li><a class="dropdown-item item-dropdown" href="./allavailablebook.php">All Books</a></li>
+                            <li><a class="dropdown-item item-dropdown" href="./allavailablebook.php">All available Books</a></li>
                         </ul>
                     </li>
                 </ul>

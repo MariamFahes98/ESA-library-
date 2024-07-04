@@ -45,50 +45,45 @@ $conn->close();
        <div class="logo"><img src="logo.png" alt="logo"></div>
        <div class="nav" >
            <ul>
-               <li><a href="../index.html">Home</a></li>
-               <li><a href="../aboutus.html">About Us</a></li>
-               <li><a href="#">Category</a></li>
-               <li><a href="#">Books</a></li>
+               <li><a href="../Index/index.php">Home</a></li>
+               <li><a href="../Index/aboutus.html">About Us</a></li>
+               <li><a href="allavailablebook.php">Books</a></li>
                <li><a href="#">Rooms</a></li>
-               <li><a href="../signupin/signin.html">Login</a></li>
+               <li><a href="../signupin/signin.php">Login</a></li>
                
            </ul>
            <div class="signup">
-               <button onclick="location.href='../signupin/signup.html'" style="margin-left: 30px;">Sign Up</button>
+               <button onclick="location.href='../signupin/signup.php'" style="margin-left: 30px;">Sign Up</button>
            </div>
        </div>
    </div>
 <div class="container">
     <div class="d-flex book-nav" id="header1" style="justify-content: space-between; padding-top: 10px;">
         <div>
-            <a href="./featured.html" class="selected"><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i> Featured Products</a>
+            <a href="./allavailablebook.php" class="selected"><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i> All available books </a>
         </div>
         <div class="lists">
             <ul class="d-flex listss">
                 <!-- Links for all screen sizes -->
                 <li class="d-none d-md-block"><a href="./popular.php" class="gray-text">Popular Products</a></li>
                 <li class="d-none d-md-block"><a href="./mostsold.php" class="gray-text">Most Sold</a></li>
-                <li class="d-none d-md-block"><a href="./newarivals.php" class="gray-text">New Arivals</a></li>
+                <li class="d-none d-md-block"><a href="./newarivals.php" class="gray-text"> New Arivals</a></li>
                 <!-- Category dropdown for all screen sizes -->
                 <li class="dropdown">
                     <a href="#" class="category dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories 
                     </a>
-                    <form id="form1"  action="categories.php"  method="post">
-                    <ul class="dropdown-menu category" aria-labelledby="navbarDropdown">
-                    <?php foreach ($categoryy as $category): ?>
-                       <li><a class="dropdown-item item-dropdown" href="#" data-category-id="<?php echo $category['CategoryID']; ?>"> <button type ="submit"><?php echo htmlspecialchars($category['cattitle']); ?></button> </a></li>
-                   <?php endforeach; ?>
-
-
-                        <!--<li><a class="dropdown-item item-dropdown" href="#" data-category="Fantasy">Fantasy</a></li>
-                        <li><a class="dropdown-item item-dropdown" href="#" data-category="Crime">Crime</a></li>
-                        <li><a class="dropdown-item item-dropdown" href="#" data-category="Fiction">Fiction</a></li>
-                        <li><a class="dropdown-item item-dropdown" href="#" data-category="Horror">Horror</a></li>
-                        <li><a class="dropdown-item item-dropdown" href="#" data-category="Adventure">Adventure</a></li>
-                        <li><a class="dropdown-item item-dropdown" href="#" data-category="Novel">Novel</a></li>-->
-                    </ul>
-                </li></form>
+                    <form id="form1" action="allavailablebook2.php" method="post">
+    <ul class="dropdown-menu category" aria-labelledby="navbarDropdown">
+        <?php foreach ($categoryy as $category): ?>
+            <li>
+                <button type="submit" name="category_id" value="<?php echo $category['CategoryID']; ?>" class="dropdown-item item-dropdown">
+                    <?php echo htmlspecialchars($category['cattitle']); ?>
+                </button>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</form>
                 <!-- Links dropdown for small screens only -->
                 <li class="dropdown d-block d-md-none">
                     <a href="#" class="gray-text dropdown-toggle" id="navbarDropdownLinks" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -254,6 +249,53 @@ function outsideClickListener(event) {
     }
 }
 
+
+//Display by category
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener to each category button
+        document.querySelectorAll('.item-dropdown').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const categoryId = this.value; // Get the category ID from button value
+                const formData = new FormData();
+                formData.append('category_id', categoryId); // Add category ID to form data
+
+                fetch('allavailablebooks2.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle response data (assuming data is an array of books)
+                    displayBooks(data); // Assuming you have a function to display books
+                })
+                .catch(error => {
+                    console.error('Error fetching books:', error);
+                    // Handle error
+                });
+            });
+        });
+
+        // Function to display books (example implementation)
+        function displayBooks(books) {
+            const cardContainer = document.getElementById('card-container');
+            cardContainer.innerHTML = ''; // Clear previous content
+
+            books.forEach(book => {
+                const card = `
+                    <div class="card">
+                       <a class="book-container" href="bookdetail.php?id=${book.BookID}">
+                    <div class="book">
+                        <img src="https://res.cloudinary.com/kaw-ets/image/upload/v1718985359/library/${book.code}.JPG" alt="Image">
+                    </div>
+                </a>
+                    </div>`;
+                cardContainer.innerHTML += card;
+            });
+        }
+    });
 </script>
 
 

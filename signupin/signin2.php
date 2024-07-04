@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT email, password, role FROM user WHERE email = ?");
+    $stmt = $conn->prepare("SELECT UserID , email, password, role FROM user WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user-email'] = $email;
             $_SESSION['user-role'] = $user['role'];
+            $_SESSION['UserID'] = $user['UserID'];
             $login_success = true;
 
             if (isset($_POST['remember'])) {
@@ -26,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 setcookie('remember_me', $token, time() + (30 * 24 * 60 * 60), '/', '', isset($_SERVER["HTTPS"]), true);
             }
 
-            header('Location: ./index.php');
+            header('Location: ../Index/index.php');
             exit();
         } else {
             $_SESSION['error'] = 'Wrong login/password';
