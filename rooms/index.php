@@ -7,8 +7,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./rooms.css">
+    <style>
+        .medal {
+            position: relative;
+            overflow: hidden;
+        }
+        .medal img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
+<div class="navbar">
+                     <div class="hamburger" onclick="toggleMenu()">
+                       <div></div>
+                       <div></div>
+                       <div></div>
+                    </div>
+                    <div class="logo"><img src="../Index/images/logo.png" alt="logo"></div>
+                    <div class="nav" >
+                        <ul>
+                            <li><a href="../Index/index.php">Home</a></li>
+                        
+                            <li><a href="../books/allavailablebook.php">Books</a></li>
+                            <li><a href="#">Rooms</a></li>
+                            <li><a href="../signupin/signin.php">Login</a></li>
+                        </ul>
+                        <div class="signup">
+                            <button onclick="location.href='../signupin/signup.php'" style="margin-left: 30px;">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
     <div class="main_container">
         <div class="flex_container_nowrap between">
             <div>
@@ -50,10 +84,10 @@
                     echo '<div class="head"></div>';
                     echo '<div class="medal">';
                     $imgSrc = '../dashboard/roomimage/' . $row["roomId"] . '.jpg';
-                    echo '<img src="' . $imgSrc . '" alt="Room Image">';
+                    echo '<img src="' . $imgSrc . '" alt="Room Image" class="img">';
                     echo '</div>';
                     echo '<div class="bottom text-center">';
-                    echo '<div id="name_room" class="name_room text-center">Room' . $row["roomId"] . '</div>';
+                    echo '<div id="name_room" class="name_room text-center">Room ' . $row["roomId"] . '</div>';
                     echo '<div class="flex_container_nowrap centered info_divs capacity_room_div">';
                     echo '<div class="title">Capacity:</div>';
                     echo '<div class="value">' . $row["capacity"] . ' people</div>';
@@ -62,16 +96,18 @@
                     echo '<div class="title">Address:</div>';
                     echo '<div class="value">' . $row["location"] . '</div>';
                     echo '</div>';
-                    echo '<button type="button" class="book_now learn_more" data-room-id="' . $row["roomId"] . '">Learn More</button>';
+                    echo '<button type="button" class="book_now learn_more" data-room-id="' . $row["roomId"] . '">Learn More</button><br><br>';
                     echo '</div>';
                     echo '</div>';
                 }
             } else {
+            
                 echo "0 results";
             }
 
             $conn->close();
             ?>
+            
         </div>
     </div>
 

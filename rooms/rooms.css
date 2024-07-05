@@ -7,7 +7,94 @@
 body {
   background-color: rgb(244, 241, 234);
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 100px;
+  background-color: rgb(244, 241, 234);
+  box-shadow: 0 2px 4px rgb(70, 54, 16);
+  position: relative;
+  
+}
 
+.navbar .logo img {
+  width: 150px;
+  height: auto;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  position: -webkit-sticky;;
+  top: 0;
+  z-index: 900;
+}
+
+.nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav ul li {
+  margin-left: 30px;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: rgb(70, 54, 16);
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.nav ul li a:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.nav .signup button {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  color: rgb(244, 241, 234);
+  background-color: rgb(70, 54, 16);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 20px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: rgb(70, 54, 16);
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.navbar.active .nav {
+  display: block;
+}
+
+.nav .signup button:hover {
+  color: rgb(70, 54, 16);
+  background-color: whitesmoke;
+  box-shadow: 0 2px 4px rgb(70, 54, 16);
+}
 .main_container {
   width: 90%;
   height: 30rem;
@@ -174,12 +261,13 @@ width: 92%;
   font-weight: 500;
   color: rgb(70, 54, 16);
 }
+
 .medal {
   width: 220px;
   height: 120px;
   margin: -28% auto;
   z-index: 1;
-  background-color: rgb(173, 162, 130);
+
   border-radius: 10% 10% 10% 10% /12% 12% 12% 12%;
 }
 .name_room {
@@ -196,4 +284,39 @@ width: 92%;
     width: 9rem;
     margin-top: 5.7% ;
     height: 2.2rem;
+}
+footer {
+  height: 60vh;
+}
+
+.foot {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(244, 241, 234);
+  padding: 80px 50px;
+  color: rgb(70, 54, 16);
+}
+
+.imgf img {
+  width: 150px;
+  height: auto;
+}
+
+.f1,.f2,.f3,.f4{
+ height: 100%;
+  
+}
+
+.foot ul li {
+  font-size: 1.5em;
+  list-style: none;
+  padding-bottom: 10px;
+}
+
+.foot h4{
+  font-size: 2em;
+  padding-left: 30px;
+  padding-bottom: 20px;
 }
