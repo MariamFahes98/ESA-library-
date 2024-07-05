@@ -53,6 +53,11 @@ const spn = document.getElementsByClassName("empty");
                     }
                 }
             }
+            if(spn[0].style.display !== "none"|| spn[1].style.display !== "none" ) {
+                email.style.marginTop="-6%";
+                if(spn[2].style.display !== "none")password.style.marginTop="-6%";
+                else password.style.marginTop="-6%"
+            }
 
             if (!checkbox.checked) {
                 checkboxEmpty.style.display = "block";
@@ -75,7 +80,8 @@ const spn = document.getElementsByClassName("empty");
             if (!validate()) {
                 event.preventDefault();
             }
-        });
+        } 
+    );
 
   
 

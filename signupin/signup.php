@@ -67,7 +67,7 @@ session_start();
             
             <span id="error-message" class="error"></span><br><br>
 
-            <div class="checkcontain">
+            <div class="checkcontain checkdiv">
               <div class="checkbox-wrapper-43">
                 <input type="checkbox" id="cbx-43" class="checkbox" >
                 <label for="cbx-43" class="check">
