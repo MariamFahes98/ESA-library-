@@ -1,0 +1,31 @@
+[   {"id":1,
+    "image": "./assets/book1.jpg",
+    "title": "SOUL",
+    "stars": [
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon un-checked" }
+      ],
+    "about": "“Soul” by Olivia Wilson delves into the essence of human existence. This novel invites readers to explore the depths of the soul, where emotions, experiences, and aspirations converge."
+
+ 
+  },
+  {
+    "id":2,
+    "image": "./assets/book2.jpg",
+    "title": "HARRY POTTER",
+    "stars": [
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon un-checked" }
+      ],
+    "about": "“HARRY POTTER” Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling.."
+
+ 
+  }
+
+  ]

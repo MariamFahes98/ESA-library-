@@ -1,0 +1,17 @@
+[  
+  { "id":4,
+    "image": "./assets/book4.jpg",
+    "title": "THE ROAD",
+    "stars": [
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon un-checked" },
+        { "tag": "i", "class": "bi bi-star-fill star-icon un-checked" }
+      ],
+    "about": "“THE ROAD” A father and his young son journey on foot across the post-apocalyptic ash-covered United States some years after an undefined extinction event; the death of all plant life and virtually all animal life."
+
+ 
+  }
+
+  ]
