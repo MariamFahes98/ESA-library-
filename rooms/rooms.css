@@ -1,0 +1,199 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(244, 241, 234);
+}
+
+.main_container {
+  width: 90%;
+  height: 30rem;
+  /* background-color: rgb(205, 200, 186); */
+  margin: 3% auto;
+  color: rgb(70, 54, 16);
+  font-family: "Work Sans", sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+}
+
+.flex_container_nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.flex_container_wrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.vertical {
+  flex-direction: column;
+}
+
+.centered {
+  justify-content: center;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+
+/* search style start here */
+
+.flexbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.search > div {
+  display: inline-block;
+  position: relative;
+}
+
+.search > div:after {
+  content: "";
+  background: rgb(70, 54, 16);
+  width: 4px;
+  height: 20px;
+  position: absolute;
+  top: 33px;
+  right: 2px;
+  transform: rotate(135deg);
+}
+
+.search > div > input {
+  color: rgb(70, 54, 16);
+  font-size: 16px;
+  background: transparent;
+  width: 35px;
+  height:35px;
+  padding: 12px;
+  border: solid 3px rgb(70, 54, 16);
+  outline: none;
+  border-radius: 35px;
+  transition: width 0.5s;
+  font-size: 20px;
+}
+.search::placeholder{color:rgb(70, 54, 16) ;}
+
+.search > div > input::placeholder {
+  color: #efefef;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+.search > div > input:focus::placeholder {
+  opacity: 1;
+}
+
+.search > div > input:focus,
+.search > div > input:not(:placeholder-shown) {
+  width: 250px;
+}
+/* end of the search style */
+
+/* .search-input {
+  position: relative;
+  display: inline-block;
+}
+
+.search-input input[type="text"] {
+  padding: 10px 30px 10px 10px;
+  border: 2px solid rgb(70, 54, 16);
+  border-radius: 5px;
+  width: 220px;
+  height: 2;
+  font-size: 15px;
+  font-weight: 550;
+  background-color: rgb(205, 200, 186);
+  color: rgb(70, 54, 16);
+}
+.search-icon {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.search-icon svg {
+  fill: transparent;
+} */
+
+
+.book_now {
+  margin-top: 6%;
+  width: 20%;
+  border-radius: 20% 20% 20% 20% /80% 80% 80% 80%;
+  background-color: rgb(70, 54, 16);
+  color: rgb(244, 241, 234);
+  height: 2.3rem;
+  border-color: rgb(70, 54, 16);
+  font-size: 22px;
+  margin: 5% auto;
+}
+hr {
+  width: 50%;
+  margin: 4% auto;
+  color: rgb(49, 37, 11);
+}
+.rooms {
+width: 92%;
+  margin: 10% auto;
+  height: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.room {  border: 1px solid rgb(188, 184, 172);
+  border-radius: 10% 10% 0% 0% /30% 30% 80% 80%;
+  box-shadow: 1px 1px 1px rgb(188, 184, 172);
+  width: 17rem ;
+  height: 22rem;
+  margin: 4% auto;
+  display: block;
+}
+.head {
+  width: 100%;
+  height: 7rem;
+  background-color: rgb(70, 54, 16);
+  border-radius: 10% 10% 0% 0% /30% 30% 80% 80%;
+
+}
+.bottom {
+  width: 100%;
+  height: 11.4rem;
+  
+  z-index: -0.1;
+  border-top: 0px;
+  font-size: 21px;
+  font-weight: 500;
+  color: rgb(70, 54, 16);
+}
+.medal {
+  width: 220px;
+  height: 120px;
+  margin: -28% auto;
+  z-index: 1;
+  background-color: rgb(173, 162, 130);
+  border-radius: 10% 10% 10% 10% /12% 12% 12% 12%;
+}
+.name_room {
+  margin: 5.5rem auto;
+  font-weight: 700;
+  font-size: 30px;
+}
+.info_divs{
+    margin-top: -5.5rem;
+
+}
+.learn_more{
+    font-size:20px;
+    width: 9rem;
+    margin-top: 5.7% ;
+    height: 2.2rem;
+}

@@ -52,13 +52,13 @@ text-align: center;
 .icons{margin-left: -6%;}
 .empty{color: red;
     font-size: 18px;
-    margin-top: 1.3rem;
+    margin-top: 0.5rem !important;
     display: none;
     }
 #password{margin-top: 1.8rem;}
     .email{
         font-size: 17px;
-        margin-top: 1.3rem;
+        margin-top: 0.5rem !important;
         display: none;
         }
 #iconP{
@@ -224,7 +224,7 @@ a.fps:active {
 }
 
 .acc {
-    width: 13rem;
+    width: 11rem !important;
     height: 2.6rem;
     margin: auto;
     margin-top: 4.5rem;
