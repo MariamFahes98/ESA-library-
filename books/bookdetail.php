@@ -85,7 +85,7 @@ $_SESSION['BookID'] = $book['BookID'];
 form {
     display: flex;
     flex-direction: column;
-    color = rgb(70, 54, 16);
+    color : rgb(70, 54, 16);
 }
 
 form label {
@@ -198,7 +198,7 @@ form button:hover {
         $stmt->close();
         $conn->close();
     ?>
-</div>
+</div>zz
 
  
     <script>  
