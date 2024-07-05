@@ -38,7 +38,7 @@ if ($conn->connect_error) {
                             <li><a href="index.php">Home</a></li>
                             <li><a href="aboutus.html">About Us</a></li>
                             <li><a href="../books/allavailablebook.php">Books</a></li>
-                            <li><a href="#">Rooms</a></li>
+                            <li><a href="../rooms/index.php">Rooms</a></li>
                             <li><a href="../signupin/signin.php">Login</a></li>
                         </ul>
                         <div class="signup">
